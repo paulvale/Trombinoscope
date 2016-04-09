@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Trombinoscope UTC</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" class="index" ng-app="Trombinoscope" ng-controller="SearchController">
+     <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll navbar-shrink">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Trombinoscope</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-shrink" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Recherche</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#portfolio">Résultat</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#team">Equipe</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-heading">Le <br> Trombinoscope <br> UTC</div>
+                <div class="intro-lead-in">Retrouvez la personne dont vous avez besoin en toute simplicité ! </div>
+                <a href="#services" class="page-scroll btn btn-xl">Commencer la recherche</a>
+            </div>
+        </div>
+    </header>
+
+    <div>
+        <!-- Services Section -->
+        <section id="services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Qui recherchez-vous ?</h2>
+                    </div>
+                </div>
+
+                <div>
+                    <ul class="nav nav-pills nav-justified">
+                        <li role="presentation" ng-class="{active:isActiveTab(0)}" ng-click="onClickTab(0)">
+                            <a>Recherche par individu</a>
+                        </li>
+                        <li role="presentation" ng-class="{active:isActiveTab(1)}" ng-click="onClickTab(1)">
+                            <a>Recherche par structure</a>
+                        </li>
+                    </ul>
+                </div>
+                
+
+                <div class="row rowSearch" ng-show="isActiveTab(0)">
+                  <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Nom</span>
+                        <input type="text" class="form-control" placeholder="Entrez un nom" aria-describedby="basic-addon1" ng-model="lastName">       
+                    </div>
+                    
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">Prénom</span>
+                      <input type="text" class="form-control" placeholder="Entrez un prénom" aria-describedby="basic-addon1" ng-model="firstName">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row rowSearch" ng-show="isActiveTab(1)">
+                    <div class="col-lg-12 form-group">
+                        <span id="basic-addon1">Structure : </span>
+                        <select class="form-control" id="sel1" ng-model="structureNameSelected" ng-change="callSousStructure()" >
+                            <option ng-repeat="structure in structures" value="{{structure}}">
+                                {{structure.structureLibelle}}
+                            </option>
+                        </select>     
+                    </div>
+                    <div class="col-lg-12">
+                        <span id="basic-addon1">Sous structure : </span>
+                        <select class="form-control" id="sel1" ng-model="sousStructureNameSelected" >
+                            <option ng-repeat="structure in sousStructures" value={{structure}}>
+                                {{structure.structureLibelle}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <a href="#portfolio" class="page-scroll">
+                    <button class = "btn btn-primary btn-lg btn-block" name = "Rechercher" ng-click="researchTrombi()">
+                        Rechercher
+                    </button>
+                </a>
+            </div>
+        </section>
+
+        <!-- Portfolio Grid Section -->
+        <section id="portfolio" class="bg-light-gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Résultat de votre recherche</h2>
+                        <h3 class="section-subheading text-muted">
+                            <span ng-show="lastName || firstName || 
+                                            structureObjectSelected.structureLibelle || 
+                                            sousStructureObjectSelected.structureLibelle">
+                                pour 
+                            </span>
+                            <span ng-show="lastName">nom = {{lastName}} </span>
+                            <span ng-show="firstName && lastName"> et </span>
+                            <span ng-show="firstName">prénom = {{firstName}}</span>
+
+                            <span ng-show="structureObjectSelected.structureLibelle">
+                                structure = {{structureObjectSelected.structureLibelle}}
+                            </span>   
+                            <span ng-show="structureObjectSelected.structureLibelle && 
+                                            sousStructureObjectSelected.structureLibelle">
+                                et 
+                            </span>
+                            <span ng-show="sousStructureObjectSelected.structureLibelle">
+                                sous-structure= {{sousStructureObjectSelected.structureLibelle}}
+                            </span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row" ng-show="results[0]" >
+                    <div class="col-md-4 col-sm-6 portfolio-item" ng-repeat="user in results">
+                        <a class="portfolio-link" data-toggle="modal" ng-click="userSelect(user)" href="#portfolioModal1">
+                            <div class="portfolio-hover">
+                                <div class="portfolio-hover-content">
+                                    <i class="fa fa-plus fa-3x"></i>
+                                </div>
+                            </div>
+                            <img src='{{user.image}}' class="img-responsive img-centered" alt="" ng-show="user.image">
+                            <img src='img/noImage.jpg' class="img-responsive img-centered" alt="" ng-show="!user.image">
+                        </a>
+                        <div class="portfolio-caption">
+                            <h4>{{ user.nom }}</h4>
+                            <p class="text-muted">{{user.structure}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="!results[0]">
+                    <div ng-show="lastName || firstName" class="text-center">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h4 class="service-heading">Personne inconnue</h4>
+                            <p class="text-muted">sur le trombinoscope UTC</p>
+                        </div>
+                    </div>
+                    <div ng-show="!lastName && !firstName" class="text-center">
+                        <div class="col-md-4">
+                            <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h4 class="service-heading">Besoin d'aide</h4>
+                            <p class="text-muted">d'un renseignement sur une personne de l'UTC</p>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fa fa-search fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h4 class="service-heading">Renseigner</h4>
+                            <p class="text-muted">son nom et/ou son prénom sur le Trombi</p>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fa fa-thumbs-o-up fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <h4 class="service-heading">Retrouver</h4>
+                            <p class="text-muted">ses coordonnées en toute simplicité </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>       
+    </div>
+
+    <!-- Team Section -->
+    <section id="team" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Notre Dream Team</h2>
+                    <!-- <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/yining.png" class="img-responsive img-circle" alt="">
+                        <h4>Yining Cai</h4>
+                        <p class="text-muted">GI03</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/daniel.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Daniel Li</h4>
+                        <p class="text-muted">GI04 - SRI</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/valentin_cut.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Valentin Paul</h4>
+                        <p class="text-muted">GI04 - FDD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Modal -->
+    <!-- Use the modal below to showcase details about your user profile! -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2>{{userSelected.nom}}</h2>
+                            <p class="item-intro text-muted">{{userSelected.structure}}</p>
+                            <p class="item-intro text-muted" ng-if="userSelected.sousStructure.length > 0">{{userSelected.sousStructure}}</p>
+                            <img src='{{userSelected.image}}' class="img-responsive img-centered" alt="" ng-show="userSelected.image">
+                            <img src='img/noImage.jpg' class="img-responsive img-centered" alt="" ng-show="!userSelected.image">
+                            <div class ="row">
+                                <div class="col-md-6">
+                                    <p><strong>Mail : </strong>{{userSelected.mail}}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Login : </strong>{{userSelected.login}}</p>
+                                </div>
+                            </div>
+                            <div class ="row">
+                                <div class="col-md-6">
+                                    <p ng-if="userSelected.tel.length > 0"><strong>tel: </strong>{{userSelected.tel}}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p ng-if="userSelected.tel2.length > 0"><strong>tel2 : </strong>{{userSelected.tel2}}</p>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="angularJS/app.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/agency.js"></script>
+
+</body>
+
+</html>
